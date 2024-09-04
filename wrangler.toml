@@ -1,0 +1,24 @@
+#:schema node_modules/wrangler/config-schema.json
+name = "educational-app"
+compatibility_date = "2024-05-12"
+compatibility_flags = ["nodejs_compat"]
+pages_build_output_dir = ".vercel/output/static"
+
+[placement]
+mode = "smart"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "educational-app-d1"
+database_id = "44208d82-d09f-4dda-8308-de5329039852"
+preview_database_id = "DB" # Required for Pages local development
+migrations_dir = ".drizzle"
+
+[[kv_namespaces]]
+binding = "KV"
+id = "8418ab16c5c84ee591316ef1fdf6ad5f"
+
+[vars]
+NEXT_PUBLIC_BASE_URL="https://next-educational-app.pages.dev"
+NEXT_PUBLIC_TURNSTILE_ID="0x4AAAAAAAgvpjNEBXDcnddv"
+

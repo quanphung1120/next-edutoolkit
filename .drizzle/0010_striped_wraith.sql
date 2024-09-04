@@ -1,0 +1,1 @@
+ALTER TABLE `refresh_token` ADD `is_exchanged` integer DEFAULT 0 NOT NULL;

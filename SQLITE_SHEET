@@ -1,0 +1,54 @@
+-- VIEW ALL TABLE: npx wrangler d1 execute DB --local --command "SELECT name FROM sqlite_master WHERE type='table'"
+
+
+-- USERS TABLE: npx wrangler d1 execute DB --local --command "
+CREATE TABLE user (
+  id TEXT NOT NULL PRIMARY KEY,
+  email TEXT NOT NULL,
+  passwordHash TEXT,
+  avatarUrl TEXT,
+  createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);"
+
+
+-- SESSION TABLE: npx wrangler d1 execute DB --local --command "
+CREATE TABLE session (
+  id TEXT NOT NULL PRIMARY KEY,
+  user_id TEXT NOT NULL,
+  expires_at INTEGER NOT NULL,
+  updatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (user_id) REFERENCES user(id)
+);"
+
+
+-- SOCIAL TABLE: npx wrangler d1 execute DB --local --command "
+CREATE TABLE social_accounts (
+  id TEXT PRIMARY KEY NOT NULL,
+  userId TEXT NOT NULL,
+  providerId TEXT NOT NULL,
+  providerUserId TEXT NOT NULL,
+  updatedAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (userId) REFERENCES user(id) ON DELETE CASCADE
+);"
+
+
+-- npx wrangler d1 execute DB --local --command "
+CREATE TABLE IF NOT EXISTS user_roles (
+  userId TEXT,
+  roleId INTEGER DEFAULT 1,
+  PRIMARY KEY (userId, roleId),
+  FOREIGN KEY (userId) REFERENCES user(id) ON DELETE CASCADE,
+  FOREIGN KEY (roleId) REFERENCES roles(id) ON DELETE CASCADE
+);"
+
+
+-- npx wrangler d1 execute DB --local --command "
+CREATE TABLE IF NOT EXISTS roles (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  name TEXT,
+  createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);"
