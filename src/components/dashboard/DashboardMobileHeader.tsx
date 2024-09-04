@@ -1,15 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import {
-  Home,
-  LineChart,
-  Package,
-  Package2,
-  PanelLeft,
-  ShoppingCart,
-  Users2,
-} from "lucide-react";
+import { Home, Library, LineChart, PanelLeft, SearchIcon } from "lucide-react";
 import {
   Sheet,
   SheetContent,
@@ -18,8 +10,19 @@ import {
 } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 import { usePathname } from "next/navigation";
+import { ProfileDropdown } from "../shared/ProfileDropdown";
 
-export default function MobileHeader() {
+interface MobileHeaderProps {
+  email: string;
+  profileId: string;
+  profilePicture: string | null;
+}
+
+export default function MobileHeader({
+  email,
+  profileId,
+  profilePicture,
+}: MobileHeaderProps) {
   let path = usePathname().split("/")[2];
   if (!path || path === "") path = "dashboard";
   const defaultClass =
@@ -38,41 +41,34 @@ export default function MobileHeader() {
           <SheetTitle asChild>
             <Link href="/" className={defaultClass}>
               <div className="w-full text-left text-3xl text-foreground">
-                DigiEDU
+                EduToolkit
               </div>
             </Link>
           </SheetTitle>
-          <nav className="mt-8 grid gap-6 text-lg font-medium">
+          <nav className="mt-12 grid gap-6 text-lg font-medium">
             <Link
-              href="#"
+              href="/dashboard"
               className={path === "dashboard" ? currentClass : defaultClass}
             >
               <Home className="h-5 w-5" />
               Dashboard
             </Link>
             <Link
-              href="#"
+              href="/dashboard/cards"
               className={path === "cards" ? currentClass : defaultClass}
             >
-              <ShoppingCart className="h-5 w-5" />
+              <Library className="h-5 w-5" />
               Collections
             </Link>
             <Link
-              href="#"
+              href="/searching"
               className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground"
             >
-              <Package className="h-5 w-5" />
-              Products
+              <SearchIcon className="h-5 w-5" />
+              Searching
             </Link>
             <Link
-              href="#"
-              className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground"
-            >
-              <Users2 className="h-5 w-5" />
-              Customers
-            </Link>
-            <Link
-              href="#"
+              href="/dashboard/settings"
               className={path === "settings" ? currentClass : defaultClass}
             >
               <LineChart className="h-5 w-5" />
@@ -81,6 +77,12 @@ export default function MobileHeader() {
           </nav>
         </SheetContent>
       </Sheet>
+
+      <ProfileDropdown
+        email={email}
+        profileId={profileId}
+        profilePicture={profilePicture}
+      />
     </header>
   );
 }

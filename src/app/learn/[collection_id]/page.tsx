@@ -8,7 +8,7 @@ import { Suspense } from "react";
 import ErrorPage from "@/components/shared/ErrorPage";
 import { getUserProfile } from "@/db/dto/profiles";
 import LearningCarousel from "@/components/learn/LearningCarousel";
-import { cookies } from "next/headers";
+import { getRequestContext } from "@cloudflare/next-on-pages";
 
 export default async function SuspenseLearning({
   params,
@@ -30,17 +30,6 @@ async function Learning({ collectionId }: LearningProps) {
   if (!collectionId) notFound();
 
   const { data } = await getUserProfile();
-
-  if (!data) {
-    return (
-      <ErrorPage
-        errorCode="401"
-        message="You need to be logged in to access this page!"
-        redirect="/auth"
-      />
-    );
-  }
-
   const collectionWithCards = await getCollectionWithCardsById(collectionId);
 
   if (!collectionWithCards || collectionWithCards.definitionCards.length < 1) {
@@ -53,21 +42,20 @@ async function Learning({ collectionId }: LearningProps) {
     );
   }
 
-  if (
-    !collectionWithCards.isPublic &&
-    collectionWithCards.creatorId !== data.userId
-  ) {
-    notFound();
+  if (data) {
+    // Log the learned collection here because users can only learn collection that has cards
+    await addCollectionToHistory(data.userId, collectionId);
   }
 
-  // Log the learned collection here because users can only learn collection that has cards
-  await addCollectionToHistory(data.userId, collectionId);
-
-  // Check if the user cookie has the collection id
-  const learnHistoryCookie = cookies().get("learn-history-" + collectionId);
-  let learnHistoryValue = learnHistoryCookie
-    ? parseInt(learnHistoryCookie.value)
-    : 0;
+  if (!collectionWithCards.isPublic) {
+    return (
+      <ErrorPage
+        errorCode="403"
+        message="You need to login to learn this collection!"
+        redirect="/auth"
+      />
+    );
+  }
 
   return (
     <LearningCarousel

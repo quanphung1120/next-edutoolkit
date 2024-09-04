@@ -4,7 +4,6 @@ import { Inter } from "next/font/google";
 import { ThemeProvider } from "@/components/shared/ThemeProvider";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import { LazyMotion, domAnimation } from "framer-motion";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -23,7 +22,7 @@ export default async function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={"max-h-screen antialiased " + inter.className}>
+      <body className={"antialiased " + inter.className}>
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"

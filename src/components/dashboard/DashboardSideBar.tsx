@@ -7,6 +7,7 @@ import {
   Home,
   Library,
   LineChart,
+  SearchIcon,
   Settings,
 } from "lucide-react";
 
@@ -28,7 +29,7 @@ export default function Sidebar() {
     <aside className="fixed inset-y-0 left-0 z-10 hidden w-14 flex-col border-r bg-background md:flex">
       <nav className="flex flex-col items-center gap-4 px-2 py-4">
         <Link href="/" className={defaultClass}>
-          <div className="w-full text-center text-3xl text-foreground">D</div>
+          <div className="w-full text-center text-3xl text-foreground">E</div>
         </Link>
         <Tooltip>
           <TooltipTrigger asChild>
@@ -54,7 +55,7 @@ export default function Sidebar() {
           </TooltipTrigger>
           <TooltipContent side="right">Collections</TooltipContent>
         </Tooltip>
-        <Tooltip>
+        {/* <Tooltip>
           <TooltipTrigger asChild>
             <Link
               href="dashboard/timetable"
@@ -65,20 +66,20 @@ export default function Sidebar() {
             </Link>
           </TooltipTrigger>
           <TooltipContent side="right">Timetable</TooltipContent>
-        </Tooltip>
+        </Tooltip> */}
         <Tooltip>
           <TooltipTrigger asChild>
             <Link
               href="#"
               className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
             >
-              <Globe className="h-5 w-5" />
-              <span className="sr-only">Social</span>
+              <SearchIcon className="h-5 w-5" />
+              <span className="sr-only">Searching</span>
             </Link>
           </TooltipTrigger>
-          <TooltipContent side="right">Social</TooltipContent>
+          <TooltipContent side="right">Searching</TooltipContent>
         </Tooltip>
-        <Tooltip>
+        {/* <Tooltip>
           <TooltipTrigger asChild>
             <Link
               href="#"
@@ -89,7 +90,7 @@ export default function Sidebar() {
             </Link>
           </TooltipTrigger>
           <TooltipContent side="right">Analytics</TooltipContent>
-        </Tooltip>
+        </Tooltip> */}
       </nav>
       <nav className="mt-auto flex flex-col items-center gap-4 px-2 py-4">
         <Tooltip>

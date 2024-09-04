@@ -2,6 +2,7 @@
 // by running `wrangler types --env-interface CloudflareEnv env.d.ts`
 
 interface CloudflareEnv {
-    DB: D1Database,
-    KV: KVNamespace,
+  DB: D1Database;
+  KV: KVNamespace;
+  R2: R2Bucket;
 }

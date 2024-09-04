@@ -1,18 +1,18 @@
 import { ProfileDropdown } from "@/components/shared/ProfileDropdown";
 import Link from "next/link";
-import { getUserProfile } from "@/db/dto/profiles";
-import { revalidatePath } from "next/cache";
-import { redirect } from "next/navigation";
 import MailBox from "./DashboardMailBox";
 
-export default async function DashboardHeader() {
-  const { data } = await getUserProfile();
+interface DashboardHeaderProps {
+  email: string;
+  profileId: string;
+  profilePicture: string | null;
+}
 
-  if (!data) {
-    revalidatePath("/auth");
-    redirect("/auth");
-  }
-
+export default async function DashboardHeader({
+  email,
+  profileId,
+  profilePicture,
+}: DashboardHeaderProps) {
   const navItemsClass =
     "transition-colors text-sm hover:text-foreground/80 text-foreground/60";
   return (
@@ -33,9 +33,9 @@ export default async function DashboardHeader() {
             </div>
             <MailBox />
             <ProfileDropdown
-              profileId={data.id!}
-              email={data.email!}
-              profilePicture={data.avatar}
+              profileId={profileId}
+              email={email}
+              profilePicture={profilePicture}
             />
           </div>
         </div>
