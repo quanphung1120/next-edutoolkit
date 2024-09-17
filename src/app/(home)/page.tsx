@@ -1,24 +1,33 @@
+import { buttonVariants } from "@/components/ui/button";
 import Link from "next/link";
 
 export default async function Home() {
   return (
-    <div className="flex flex-col">
-      <section className="relative flex h-[93vh] w-full items-center justify-center bg-cover bg-center bg-no-repeat">
-        <div className="relative z-10 space-y-6 px-4 text-center md:px-6">
-          <h1 className="text-4xl font-bold text-white sm:text-5xl md:text-6xl">
-            Educational Toolkit
-          </h1>
-          <p className="text-lg text-white md:text-xl">
-            Discover our products and solutions designed to support educators
-          </p>
-          <Link
-            href="/auth"
-            className="inline-flex h-10 items-center justify-center rounded-md bg-primary px-8 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
-          >
-            Get Started
-          </Link>
-        </div>
-      </section>
+    <div className="flex h-[85vh] w-full flex-col gap-12 md:text-left">
+      <div className="mt-32 flex w-full flex-col items-center justify-center gap-8 align-middle">
+        <h1 className="mx-0 w-full text-center text-5xl font-bold text-primary md:w-[480px] md:text-7xl">
+          Providing basic toolkit for students
+        </h1>
+        <h2 className="w-full text-center text-xl text-primary md:w-[580px]">
+          Improving students learning experience with reliable and affordable
+          solutions.
+        </h2>
+      </div>
+      <div className="flex w-full items-center justify-center gap-5 align-middle">
+        <Link
+          href="/auth"
+          className={buttonVariants({ variant: "outline", size: "lg" })}
+        >
+          Register
+        </Link>
+
+        <Link
+          href="/auth"
+          className={buttonVariants({ variant: "default", size: "lg" })}
+        >
+          Contact
+        </Link>
+      </div>
     </div>
   );
 }

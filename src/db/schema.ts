@@ -77,7 +77,7 @@ export const collectionsTable = pgTable("collections", {
   description: text("description"),
   creatorId: uuid("owner_id")
     .notNull()
-    .references(() => profilesTable.userId, { onDelete: "cascade" }),
+    .references(() => users.id, { onDelete: "cascade" }),
   isPublic: boolean("is_public").notNull().default(true),
   createdAt: timestamp("created_at", { mode: "date" }).notNull().defaultNow(),
   updatedAt: timestamp("updated_at", { mode: "date" }).notNull().defaultNow(),

@@ -4,7 +4,6 @@ import { Inter } from "next/font/google";
 import { ThemeProvider } from "@/components/shared/ThemeProvider";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import { LazyMotion, domAnimation } from "framer-motion";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -12,8 +11,9 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "EduToolkit - Learning Management System",
-  description: "Sustained by WIS Enterprise - Top Leading Company in field!",
+  title: "EduToolkit: Basic toolkit for students",
+  description:
+    "Sustained by the community, EduToolkit is a basic toolkit for students to improve their learning experience with reliable and affordable solutions.",
 };
 
 export default async function RootLayout({
@@ -23,10 +23,10 @@ export default async function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={"max-h-screen antialiased " + inter.className}>
+      <body className={"antialiased " + inter.className}>
         <ThemeProvider
           attribute="class"
-          defaultTheme="dark"
+          defaultTheme="system"
           enableSystem
           disableTransitionOnChange
         >

@@ -37,7 +37,7 @@ export default function CollectionBox({
       className="m-1 h-min w-min"
     >
       <Link href={"/learn/" + id} className="h-max w-max">
-        <Card className="w-[480px] min-w-[480px] cursor-pointer overflow-hidden">
+        <Card className="w-[90vw] cursor-pointer overflow-hidden md:w-[480px]">
           <CardHeader>
             <CardTitle className="text-sm">{name}</CardTitle>
             <CardDescription>

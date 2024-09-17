@@ -1,6 +1,7 @@
 import React from "react";
 import Footer from "@/components/shared/Footer";
 import Header from "@/components/home/header/HomeHeader";
+import HomeFooter from "@/components/home/HomeFooter";
 
 export const runtime = "edge";
 
@@ -13,7 +14,7 @@ export default function HomeLayout({
     <section>
       <Header />
       <div className="mx-auto h-full">{children}</div>
-      <Footer />
+      <HomeFooter />
     </section>
   );
 }

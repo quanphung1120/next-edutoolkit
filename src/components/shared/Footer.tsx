@@ -4,7 +4,7 @@ import Link from "next/link";
 
 export default async function Footer() {
   return (
-    <div className="border-t py-8">
+    <div className="py-8">
       <div className="container mx-auto flex flex-col items-center justify-between px-4 md:flex-row md:px-6">
         <div className="flex items-center gap-8">
           <Link href="#">

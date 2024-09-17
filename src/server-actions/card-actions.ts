@@ -7,6 +7,7 @@ import {
   deleteDefinitionCard,
 } from "@/db/dto/definition-card";
 import { getUserProfile } from "@/db/dto/profiles";
+import { logInfo } from "@/lib/logger/slimelogger";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
@@ -117,6 +118,7 @@ export async function handleDeleteDefinitionCard(cardId: string) {
   }
 
   revalidatePath(`/dashboard/cards/`, "layout");
+
   return {
     message: "Card deleted successfully",
     deleted: true,

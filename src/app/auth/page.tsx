@@ -30,7 +30,7 @@ async function AuthPage() {
     <div className="h-screen w-full items-center justify-center align-middle lg:flex">
       <div className="relative hidden h-full w-[50%] border-r bg-zinc-900 lg:flex">
         <div className="absolute inset-x-0 top-0 mx-10 my-10 h-16">
-          <div className="text-4xl">Educational Toolkit for Students</div>
+          <div className="text-4xl">Basic toolkit for Students</div>
         </div>
         <div className="absolute inset-x-0 bottom-0 mx-10 my-10 h-16 text-2xl">
           <Footer />
