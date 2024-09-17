@@ -11,8 +11,9 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "EduToolkit - Learning Management System",
-  description: "Sustained by WIS Enterprise - Top Leading Company in field!",
+  title: "EduToolkit: Basic toolkit for students",
+  description:
+    "Sustained by the community, EduToolkit is a basic toolkit for students to improve their learning experience with reliable and affordable solutions.",
 };
 
 export default async function RootLayout({
@@ -25,7 +26,7 @@ export default async function RootLayout({
       <body className={"antialiased " + inter.className}>
         <ThemeProvider
           attribute="class"
-          defaultTheme="dark"
+          defaultTheme="system"
           enableSystem
           disableTransitionOnChange
         >

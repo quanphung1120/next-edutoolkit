@@ -9,29 +9,26 @@ import MobileDropdown from "./mobile/MobileDropdown";
 export default async function NavRightItems() {
   const { data } = await getUserProfile();
 
-  if (!data) {
-    return <UnloginItems />;
-  }
-
-  return (
+  return data ? (
     <LoggedInItems
       profileId={data.id}
-      email={data.email}
+      email={data.email!}
       profilePicture={data.avatar}
     />
+  ) : (
+    <UnloginItems />
   );
 }
 
 function UnloginItems() {
   return (
-    <div className="flex items-center justify-end gap-4 align-middle">
+    <div className="flex items-center justify-end gap-4">
       <Link href="/contact" className={buttonVariants({ variant: "outline" })}>
         Contact
       </Link>
       <Link href="/auth" className={buttonVariants({ variant: "default" })}>
         Sign In
       </Link>
-
       <div className="block md:hidden">
         <MenuIcon size={24} />
       </div>
@@ -41,8 +38,8 @@ function UnloginItems() {
 
 interface LoggedInItemsProps {
   profileId: string;
-  email: string | undefined;
-  profilePicture: string | undefined | null;
+  email: string;
+  profilePicture?: string | null;
 }
 
 function LoggedInItems({
@@ -51,7 +48,7 @@ function LoggedInItems({
   profilePicture,
 }: LoggedInItemsProps) {
   return (
-    <div className="flex items-center justify-end gap-4 align-middle">
+    <div className="flex items-center justify-end gap-4">
       <Link
         href="/dashboard"
         className={cn(
@@ -63,10 +60,9 @@ function LoggedInItems({
       </Link>
       <ProfileDropdown
         profileId={profileId}
-        email={email!}
+        email={email}
         profilePicture={profilePicture}
       />
-
       <div className="block md:hidden">
         <MobileDropdown />
       </div>
