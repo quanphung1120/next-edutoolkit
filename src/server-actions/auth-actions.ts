@@ -19,7 +19,7 @@ export async function signInWithEmail(
   prevState: any,
   formData: FormData,
 ) {
-  const headersList = headers();
+  const headersList = await headers();
   const origin = headersList.get("origin");
 
   if (!origin) {

@@ -10,11 +10,12 @@ import { getUserProfile } from "@/db/dto/profiles";
 import LearningCarousel from "@/components/learn/LearningCarousel";
 import { getRequestContext } from "@cloudflare/next-on-pages";
 
-export default async function SuspenseLearning({
-  params,
-}: {
-  params: { collection_id: string };
-}) {
+export default async function SuspenseLearning(
+  props: {
+    params: Promise<{ collection_id: string }>;
+  }
+) {
+  const params = await props.params;
   return (
     <Suspense fallback={<Loading />}>
       <Learning collectionId={params.collection_id} />

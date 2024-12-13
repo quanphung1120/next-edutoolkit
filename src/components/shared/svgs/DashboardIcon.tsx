@@ -1,4 +1,4 @@
-import { SVGProps } from "react";
+import { SVGProps, type JSX } from "react";
 
 export default function LayoutDashboardIcon(
   props: JSX.IntrinsicAttributes & SVGProps<SVGSVGElement>,

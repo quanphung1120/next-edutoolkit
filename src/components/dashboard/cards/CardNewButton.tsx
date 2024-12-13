@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useActionState } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -14,7 +14,7 @@ import {
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
 import { Textarea } from "@/components/ui/textarea";
-import { useFormState, useFormStatus } from "react-dom";
+import { useFormStatus } from "react-dom";
 import { toast } from "@/components/ui/use-toast";
 import { handleAddDefinitionCard } from "@/server-actions/card-actions";
 import { useCard } from "@/context/CardContext";
@@ -33,7 +33,7 @@ export default function CardNewForm({ collectionId }: CardNewFormProps) {
     collectionId,
   );
 
-  const [state, actionState] = useFormState(bindedHandleAddDefinitionCard, {
+  const [state, actionState] = useActionState(bindedHandleAddDefinitionCard, {
     message: "",
     created: false,
     card: null,

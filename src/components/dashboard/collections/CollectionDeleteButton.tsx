@@ -12,8 +12,7 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
-import { useFormState } from "react-dom";
-import { useEffect } from "react";
+import { useEffect, useActionState } from "react";
 import { deleteCollectionAction } from "@/server-actions/collection-actions";
 import { useRouter } from "next/navigation";
 import { toast } from "@/components/ui/use-toast";
@@ -29,7 +28,7 @@ export default function CollectionDeleteButton({
     null,
     collectionId,
   );
-  const [state, deleteAction] = useFormState(bindedDeleteCollectionAction, {
+  const [state, deleteAction] = useActionState(bindedDeleteCollectionAction, {
     message: "",
     deleted: false,
   });

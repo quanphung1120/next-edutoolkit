@@ -16,11 +16,11 @@ import {
 } from "@/components/ui/popover";
 import { cn } from "@/lib/utils";
 import { CalendarIcon } from "lucide-react";
-import React, { FormEvent, useEffect, useState } from "react";
+import React, { FormEvent, useEffect, useState, useActionState } from "react";
 import { format, isSameDay } from "date-fns";
 import { toast } from "@/components/ui/use-toast";
 import { Calendar } from "@/components/ui/calendar";
-import { useFormState, useFormStatus } from "react-dom";
+import { useFormStatus } from "react-dom";
 import { updateBirthdate } from "@/server-actions/profile-action";
 
 interface BirthdateProps {
@@ -32,7 +32,7 @@ export default function Birthdate({ birthdate }: BirthdateProps) {
   const [isCalendarOpen, setIsCalendarOpen] = useState(false);
 
   const bindedUpdateUserAction = updateBirthdate.bind(null, date);
-  const [state, actionState] = useFormState(bindedUpdateUserAction, {
+  const [state, actionState] = useActionState(bindedUpdateUserAction, {
     message: "",
     updated: false,
   });

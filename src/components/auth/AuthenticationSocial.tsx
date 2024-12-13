@@ -1,5 +1,5 @@
 import { buttonVariants } from "@/components/ui/button";
-import { SVGProps } from "react";
+import { SVGProps, type JSX } from "react";
 import Link from "next/link";
 
 export default function SocialLogin() {

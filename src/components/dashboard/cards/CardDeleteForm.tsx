@@ -1,3 +1,4 @@
+import { useActionState } from "react";
 "use client";
 
 import {
@@ -12,7 +13,6 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
-import { useFormState } from "react-dom";
 import { toast } from "@/components/ui/use-toast";
 import { useCard } from "@/context/CardContext";
 import { handleDeleteDefinitionCard } from "@/server-actions/card-actions";
@@ -28,7 +28,7 @@ export default function CardDeleteForm({ cardId }: DeleteConfirmProps) {
     cardId,
   );
 
-  const [state, actionState] = useFormState(bindedHandleDefinitionDeleteCard, {
+  const [state, actionState] = useActionState(bindedHandleDefinitionDeleteCard, {
     message: "",
     deleted: false,
   });
