@@ -10,15 +10,15 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { useFormState, useFormStatus } from "react-dom";
+import { useFormStatus } from "react-dom";
 import { toast } from "@/components/ui/use-toast";
-import { useRef, useState } from "react";
+import { useRef, useState, useActionState } from "react";
 import { uploadProfilePicture } from "@/server-actions/profile-action";
 
 export default function Avatar() {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [pictureFile, setPictureFile] = useState<File | null>(null);
-  const [state, actionState] = useFormState(uploadProfilePicture, {
+  const [state, actionState] = useActionState(uploadProfilePicture, {
     message: "",
     uploaded: false,
   });
@@ -81,9 +81,9 @@ interface SaveButtonProps {
 function SaveButton({ file }: SaveButtonProps) {
   const { pending } = useFormStatus();
   return (
-    <Button type="submit" size="sm" disabled={pending || !validateFile(file)}>
-      Save changes
-    </Button> // Validate the file
+    // Validate the file
+    (<Button type="submit" size="sm" disabled={pending || !validateFile(file)}>Save changes
+          </Button>)
   );
 }
 

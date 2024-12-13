@@ -10,8 +10,8 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { useFormState, useFormStatus } from "react-dom";
-import { useEffect, useState } from "react";
+import { useFormStatus } from "react-dom";
+import { useEffect, useState, useActionState } from "react";
 import { toast } from "@/components/ui/use-toast";
 import { updateDisplayName } from "@/server-actions/profile-action";
 
@@ -21,7 +21,7 @@ interface DisplayNameProps {
 
 export default function DisplayName({ displayName }: DisplayNameProps) {
   const [newDisplayName, setNewDisplayName] = useState(displayName);
-  const [state, actionState] = useFormState(updateDisplayName, {
+  const [state, actionState] = useActionState(updateDisplayName, {
     message: "",
     updated: false,
   });

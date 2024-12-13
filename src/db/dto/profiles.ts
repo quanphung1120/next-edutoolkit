@@ -1,27 +1,27 @@
-import "server-only";
+import 'server-only'
 
-import { db } from "@/db";
-import { profilesTable } from "@/db/schema";
-import { createClient } from "@/lib/supabase/server";
-import { eq } from "drizzle-orm";
-import { cache } from "react";
+import { db } from '@/db'
+import { profilesTable } from '@/db/schema'
+import { createClient } from '@/lib/supabase/server'
+import { eq } from 'drizzle-orm'
+import { cache } from 'react'
 
 export const getUserProfileById = cache(async (userId: string) => {
   const response = await db.query.profilesTable.findFirst({
-    where: eq(profilesTable.userId, userId),
-  });
+    where: eq(profilesTable.userId, userId)
+  })
 
   if (!response) {
-    return { profile: null };
+    return { profile: null }
   }
 
-  let avatar = null;
+  let avatar = null
   if (response.picture) {
-    const supabase = createClient();
-    const path = `${userId}/${response.picture}`;
-    const { data } = supabase.storage.from("avatars").getPublicUrl(path);
+    const supabase = await createClient()
+    const path = `${userId}/${response.picture}`
+    const { data } = supabase.storage.from('avatars').getPublicUrl(path)
     if (data) {
-      avatar = data.publicUrl;
+      avatar = data.publicUrl
     }
   }
 
@@ -33,85 +33,82 @@ export const getUserProfileById = cache(async (userId: string) => {
       picture: avatar,
       birthdate: response.birthdate,
       updatedAt: response.updatedAt,
-      createdAt: response.createdAt,
-    },
-  };
-});
+      createdAt: response.createdAt
+    }
+  }
+})
 
-export async function updateProfileDisplayName(
-  userId: string,
-  displayName: string,
-) {
+export async function updateProfileDisplayName(userId: string, displayName: string) {
   const response = await db
     .update(profilesTable)
     .set({
-      displayName,
+      displayName
     })
     .where(eq(profilesTable.userId, userId))
-    .execute();
+    .execute()
 
-  return response;
+  return response
 }
 
 export async function updateProfileAvatar(userId: string, picture: string) {
   const response = await db
     .update(profilesTable)
     .set({
-      picture,
+      picture
     })
     .where(eq(profilesTable.userId, userId))
-    .execute();
+    .execute()
 
-  return response;
+  return response
 }
 
 export async function updateProfileBirthdate(userId: string, birthdate: Date) {
   const response = await db
     .update(profilesTable)
     .set({
-      birthdate,
+      birthdate
     })
     .where(eq(profilesTable.userId, userId))
-    .execute();
+    .execute()
 
-  return response;
+  return response
 }
 
 // This function will not be cached since we want the up-to-date information
 export async function isAuthenticated() {
-  const supabase = createClient();
+  const supabase = await createClient()
   const {
-    data: { user },
-  } = await supabase.auth.getUser();
-  return user !== null;
+    data: { user }
+  } = await supabase.auth.getUser()
+  return user !== null
 }
 
 // This function will be cached to avoid unnecessary requests
 export const getUserProfile = cache(async () => {
-  const supabase = createClient();
+  const supabase = await createClient()
   const {
-    data: { user },
-  } = await supabase.auth.getUser();
+    data: { user }
+  } = await supabase.auth.getUser()
 
   if (!user) {
-    return { data: null };
+    return { data: null }
   }
 
-  const userId = user.id;
+  const userId = user.id
   const response = await db.query.profilesTable.findFirst({
-    where: eq(profilesTable.userId, userId),
-  });
+    where: eq(profilesTable.userId, userId)
+  })
 
   if (!response) {
-    return { data: null };
+    return { data: null }
   }
 
-  let avatar = null;
+  let avatar = null
   if (response.picture) {
-    const path = `${userId}/${response.picture}`;
-    const { data } = supabase.storage.from("avatars").getPublicUrl(path);
+    const path = `${userId}/${response.picture}`
+    const { data } = supabase.storage.from('avatars').getPublicUrl(path)
     if (data) {
-      avatar = data.publicUrl;
+      avatar = data.publicUrl
     }
   }
 
@@ -123,8 +120,8 @@ export const getUserProfile = cache(async () => {
     birthdate: response.birthdate,
     updatedAt: response.updatedAt,
     createdAt: response.createdAt,
-    avatar,
-  };
+    avatar
+  }
 
-  return { data: userProfile };
-});
+  return { data: userProfile }
+})

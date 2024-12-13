@@ -8,11 +8,12 @@ import { CardProvider } from "@/context/CardContext";
 import CardListing from "@/components/dashboard/cards/CardListing";
 import CollectionInfo from "@/components/dashboard/collections/CollectionInformation";
 
-export default async function SuspenseEditCard({
-  params,
-}: {
-  params: { collection_id: string };
-}) {
+export default async function SuspenseEditCard(
+  props: {
+    params: Promise<{ collection_id: string }>;
+  }
+) {
+  const params = await props.params;
   return (
     <Suspense fallback={<Loading />}>
       <EditCard id={params.collection_id} />

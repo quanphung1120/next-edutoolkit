@@ -7,9 +7,9 @@ import {
   InputOTPSlot,
 } from "@/components/ui/input-otp";
 import { REGEXP_ONLY_DIGITS } from "input-otp";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useActionState } from "react";
 import { Button } from "@/components/ui/button";
-import { useFormState, useFormStatus } from "react-dom";
+import { useFormStatus } from "react-dom";
 import { toast } from "@/components/ui/use-toast";
 import { Loader2Icon } from "lucide-react";
 import { verifyUserOTP } from "@/server-actions/auth-actions";
@@ -21,7 +21,7 @@ interface VerifyOTPProps {
 export default function VerifyOTP({ email }: VerifyOTPProps) {
   const [token, setToken] = useState("");
   const bindedVerifyUserOTP = verifyUserOTP.bind(null, email);
-  const [state, actionState] = useFormState(bindedVerifyUserOTP, {
+  const [state, actionState] = useActionState(bindedVerifyUserOTP, {
     message: "",
     completed: false,
   });

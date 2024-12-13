@@ -14,8 +14,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
 import { Textarea } from "@/components/ui/textarea";
-import { useCallback, useEffect, useState } from "react";
-import { useFormState, useFormStatus } from "react-dom";
+import { useCallback, useEffect, useState, useActionState } from "react";
+import { useFormStatus } from "react-dom";
 import { toast } from "@/components/ui/use-toast";
 import { Collection } from "@/db/dto/collections";
 import { newCollectionAction } from "@/server-actions/collection-actions";
@@ -25,7 +25,7 @@ import { PlusIcon } from "lucide-react";
 export default function NewCollectionForm() {
   const { addCollection } = useCollection();
   const [open, setOpen] = useState(false);
-  const [state, actionState] = useFormState(newCollectionAction, {
+  const [state, actionState] = useActionState(newCollectionAction, {
     message: "",
     created: false,
     collection: null,

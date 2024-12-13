@@ -3,8 +3,8 @@
 import { Input } from "@/components/ui/input";
 import { Turnstile } from "@marsidev/react-turnstile";
 import { useToast } from "@/components/ui/use-toast";
-import { useEffect, useState } from "react";
-import { useFormState, useFormStatus } from "react-dom";
+import { useEffect, useState, useActionState } from "react";
+import { useFormStatus } from "react-dom";
 import { Button } from "@/components/ui/button";
 import { Loader2Icon } from "lucide-react";
 import { signInWithEmail } from "@/server-actions/auth-actions";
@@ -20,7 +20,7 @@ export default function AuthenticationForm() {
   const bindedSignInWithEmail = signInWithEmail.bind(null, captchaToken);
   const [turnstileFailed, setTurnstileFailed] = useState<boolean>(false);
 
-  const [state, formAction] = useFormState(bindedSignInWithEmail, {
+  const [state, formAction] = useActionState(bindedSignInWithEmail, {
     message: "",
     completed: false,
   });
